@@ -41,7 +41,7 @@ export async function apply(ctx: Context) {
         cover: '',
         url: `https://music.163.com/#/song?id=${item.id}`,
         platform: thisPlatform,
-        err: 'false'
+        err: false
       }
 
       return backObj
