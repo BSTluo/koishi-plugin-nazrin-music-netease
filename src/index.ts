@@ -56,8 +56,8 @@ export async function apply(ctx: Context) {
     let songData = await ctx.http.get(`http://music.163.com/api/song/detail/?id=${id}&ids=%5B${id}%5D`)
     songData = songData.songs[0]
     let songResource = await ctx.http.get(`https://v.iarc.top/?type=song&id=${id}`)
+    
     songResource = songResource[0]
-
     // 调用此条提交解析结果
     ctx.emit('nazrin/parse_over',
       songResource.url,
