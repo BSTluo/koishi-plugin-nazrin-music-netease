@@ -39,7 +39,7 @@ export async function apply(ctx: Context)
 
     
 
-    findList = result.map(item =>
+    findList = result.map((item: { name: any; artists: { name: any; }[]; id: any; }) =>
     {
       let backObj = {
         name: item.name,
