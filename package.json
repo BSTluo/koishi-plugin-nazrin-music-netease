@@ -21,6 +21,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BSTluo/koishi-plugin-nazrin-music-netease"
+    "url": "git+https://github.com/BSTluo/koishi-plugin-nazrin-music-netease.git"
   }
 }
