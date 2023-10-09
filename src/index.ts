@@ -23,8 +23,7 @@ export async function apply(ctx: Context)
     // keyword为关键词
     let findList = [];
     const data = await ctx.http.get(`http://music.163.com/api/search/get/web?csrf_token=hlpretag=&hlposttag=&s=${keyword}&type=1&offset=0&total=true&limit=10`);
-    if (data.abroad) return;
-    if (data.result.songCount <= 0)
+    if (data.abroad || data.result.songCount <= 0)
     {
       findList = [
         {
