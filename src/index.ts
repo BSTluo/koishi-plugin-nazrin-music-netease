@@ -34,7 +34,7 @@ export async function apply(ctx: Context) {
 
     const result = data.result.songs
 
-    if (data.result.abroad) return
+    if (data.result.abroad && data.result.abroad === 'true') return
     
     findList = result.map(item => {
       let backObj = {
