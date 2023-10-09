@@ -35,6 +35,7 @@ export async function apply(ctx: Context) {
     const result = data.result.songs
 
     if (data.result.abroad) return
+    
     findList = result.map(item => {
       let backObj = {
         name: item.name,
