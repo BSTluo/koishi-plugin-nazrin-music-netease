@@ -44,7 +44,6 @@ export async function apply(ctx: Context)
       let backObj = {
         name: item.name,
         author: item.artists[0].name,
-        cover: '',
         url: `https://music.163.com/#/song?id=${item.id}`,
         platform: thisPlatform,
         err: false
