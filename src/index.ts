@@ -13,10 +13,11 @@ export const Config: Schema<Config> = Schema.object({});
 
 export async function apply(ctx: Context)
 {
-  // 当前平台为netease
   const thisPlatform = 'netease';
-  // 注册此平台
-  ctx.nazrin.music.push(thisPlatform);
+
+  if (!ctx.nazrin.music.includes(thisPlatform)) {
+    ctx.nazrin.music.push(thisPlatform);
+  }
 
   ctx.on('nazrin/music', async keyword =>
   {
