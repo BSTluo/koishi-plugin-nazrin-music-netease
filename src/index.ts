@@ -1,4 +1,7 @@
 import { Context, Schema } from 'koishi';
+import { NeteaseApi } from './api/NeteaseApi/neteaseApi';
+
+
 
 // 导入nazrin核心
 import { } from 'koishi-plugin-nazrin-core';
@@ -15,7 +18,8 @@ export async function apply(ctx: Context)
 {
   const thisPlatform = 'netease';
 
-  if (!ctx.nazrin.music.includes(thisPlatform)) {
+  if (!ctx.nazrin.music.includes(thisPlatform))
+  {
     ctx.nazrin.music.push(thisPlatform);
   }
 
@@ -23,7 +27,8 @@ export async function apply(ctx: Context)
   {
     // keyword为关键词
     let findList = [];
-    const data = await ctx.http.get(`http://music.163.com/api/search/get/web?csrf_token=hlpretag=&hlposttag=&s=${keyword}&type=1&offset=0&total=true&limit=10`);
+    const neteaseApi = new NeteaseApi()
+    const data = await neteaseApi.getNeteaseMusicSearchData(keyword)
     if (data.abroad || data.result.songCount <= 0)
     {
       findList = [
@@ -38,7 +43,7 @@ export async function apply(ctx: Context)
 
     const result = data.result.songs;
 
-    
+
 
     findList = result.map((item: { name: any; artists: { name: any; }[]; id: any; }) =>
     {
@@ -77,3 +82,6 @@ export async function apply(ctx: Context)
       '66ccff');
   });
 }
+
+
+

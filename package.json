@@ -22,5 +22,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BSTluo/koishi-plugin-nazrin-music-netease.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/node-rsa": "^1.1.2"
   }
 }
