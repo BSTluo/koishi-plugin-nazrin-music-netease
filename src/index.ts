@@ -1,5 +1,5 @@
 import { Context, Schema } from 'koishi';
-import { NeteaseApi } from './api/NeteaseApi/neteaseApi';
+import { MusicSearch } from './api/NeteaseSearch';
 
 
 
@@ -25,60 +25,28 @@ export async function apply(ctx: Context)
 
   ctx.on('nazrin/music', async keyword =>
   {
-    // keyword为关键词
-    let findList = [];
-    const neteaseApi = new NeteaseApi()
-    const data = await neteaseApi.getNeteaseMusicSearchData(keyword)
-    if (data.abroad || data.result.songCount <= 0)
-    {
-      findList = [
-        {
-          err: true,
-          platform: thisPlatform
-        }
-      ];
-
-      return ctx.emit('nazrin/search_over', findList);
-    }
-
-    const result = data.result.songs;
-
-
-
-    findList = result.map((item: { name: any; artists: { name: any; }[]; id: any; }) =>
-    {
-      let backObj = {
-        name: item.name,
-        author: item.artists[0].name,
-        url: `https://music.163.com/#/song?id=${item.id}`,
-        platform: thisPlatform,
-        err: false
-      };
-
-      return backObj;
-    });
-    return ctx.emit('nazrin/search_over', findList); // 完成后调用此条，提交搜索结果给用户
+    const musicSearch = new MusicSearch(thisPlatform);
+    const findList = await musicSearch.search(keyword);
+    ctx.emit('nazrin/search_over', findList); // 完成后调用此条，提交搜索结果给用户
   });
 
-  ctx.on('nazrin/parse_music', async (platform, url) =>
+  ctx.on('nazrin/parse_music', async (platform: string, _url: any, data: any) =>
   {
     if (platform !== thisPlatform) { return; } // 判断是否为本平台的解析请求
-    const id = url.replace('https://music.163.com/#/song?id=', '');
 
-    let songData = await ctx.http.get(`http://music.163.com/api/song/detail/?id=${id}&ids=%5B${id}%5D`);
-    songData = songData.songs[0];
-    let songResource = await ctx.http.get(`https://v.iarc.top/?type=song&id=${id}`);
+    const musicSearch = new MusicSearch(platform);
 
-    songResource = songResource[0];
+    const MusicResource = await musicSearch.getVideo(data);
+
     // 调用此条提交解析结果
     ctx.emit('nazrin/parse_over',
-      songResource.url,
-      songResource.name,
-      songResource.artist,
-      songResource.pic,
-      (songData.duration / 1000) /* ?资源时长，单位s */,
-      (songData.hMusic.bitrate / 1000),
-      '66ccff');
+      MusicResource.url,
+      MusicResource.name,
+      MusicResource.author,
+      MusicResource.cover,
+      MusicResource.duration /* ?资源时长，单位s */,
+      MusicResource.bitRate,
+      MusicResource.color);
   });
 }
 

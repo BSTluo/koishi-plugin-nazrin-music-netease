@@ -16,16 +16,11 @@
     "plugin"
   ],
   "peerDependencies": {
-    "koishi": "4.15.0",
+    "koishi": "^4.15.0",
     "koishi-plugin-nazrin-core": "^0.0.2"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BSTluo/koishi-plugin-nazrin-music-netease.git"
-  },
-  "dependencies": {
-  },
-  "devDependencies": {
-    "@types/node-rsa": "^1.1.2"
   }
 }
