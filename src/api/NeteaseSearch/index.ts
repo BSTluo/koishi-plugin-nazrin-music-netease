@@ -47,9 +47,7 @@ export class MusicSearch
         songData = songData.songs[0];
         let songResource = await neteaseApi.getSongResource(id);
         songResource = songResource[0];
-
-        let songUrl = await neteaseApi.getRedirectUrl(songResource.url)
-
+        let songUrl = await neteaseApi.getRedirectUrl(songResource.url);
         const bitrate = songData.hMusic ? (songData.hMusic.bitrate / 1000) : 128; // 如果 songData.hMusic 存在则使用其比特率，否则使用默认值 128
         return this.returnCompleteVideoResource(songUrl, data.name, data.artists[0].name, songResource.pic, (data.duration / 1000), bitrate, '66ccff');
     }
