@@ -20,7 +20,6 @@ export class MusicSearch
         let findList = [];
 
         const data = await this.neteaseApi.getNeteaseMusicSearchData(keyword);
-
         const result = data.result.songs;
 
         findList = result.map((item: { name: any; artists: { name: any; }[]; id: any; }) =>
@@ -49,8 +48,12 @@ export class MusicSearch
         let songResource = await neteaseApi.getSongResource(id);
         songResource = songResource[0];
 
-        return this.returnCompleteVideoResource(songResource.url, data.name, data.artists[0].name, songResource.pic, (data.duration / 1000), (songData.hMusic.bitrate / 1000), '66ccff');
+        let songUrl = await neteaseApi.getRedirectUrl(songResource.url)
+
+        const bitrate = songData.hMusic ? (songData.hMusic.bitrate / 1000) : 128; // 如果 songData.hMusic 存在则使用其比特率，否则使用默认值 128
+        return this.returnCompleteVideoResource(songUrl, data.name, data.artists[0].name, songResource.pic, (data.duration / 1000), bitrate, '66ccff');
     }
+
 
 
     private returnCompleteVideoResource(url: string, name: string, author: string, cover: string, duration: number, bitRate: number, color: string)
