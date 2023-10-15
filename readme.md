@@ -16,16 +16,12 @@
 
 [![npm](https://img.shields.io/npm/v/koishi-plugin-nazrin-music-netease?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-nazrin-music-netease)
 
-# 🎉koishi-plugin-nazrin-video-bilibili
+# 🎉koishi-plugin-nazrin-video-netease
 
 ## 📝简介
 赋予[koishi-plugin-nazrin-core](https://github.com/BSTluo/koishi-plugin-nazrin-core)聚合网易云的能力
 
 ***
-
-## 计划
-- [ ] 登录功能（已拉取vip视频）
-- [ ] 模块化
 
 ## 🤚🏻免责
 

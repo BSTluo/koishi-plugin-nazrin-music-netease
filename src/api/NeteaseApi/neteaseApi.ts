@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { weapi } from '../crypto';
+import { weapi } from './crypto';
 export class NeteaseApi
 {
 
