@@ -4,7 +4,7 @@ import { MusicSearch } from './api/NeteaseSearch';
 // 导入nazrin核心
 import { } from 'koishi-plugin-nazrin-core';
 // 声明使用nazrin核心
-export const using = ['nazrin'];
+export const inject = ['nazrin'];
 
 export const name = 'nazrin-music-netease';
 
