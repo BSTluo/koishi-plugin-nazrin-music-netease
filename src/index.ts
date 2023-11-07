@@ -1,8 +1,6 @@
 import { Context, Schema } from 'koishi';
 import { MusicSearch } from './api/NeteaseSearch';
 
-
-
 // 导入nazrin核心
 import { } from 'koishi-plugin-nazrin-core';
 // 声明使用nazrin核心
