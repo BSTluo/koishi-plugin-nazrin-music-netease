@@ -33,45 +33,55 @@ export class NeteaseApi
 
   async getNeteaseMusicDetail(id: number)
   {
-    const url = `http://music.163.com/api/song/detail`;
-    const params = {
-      id: id,
-      ids: `[${id}]`
-    };
-    const headers = {
-    };
-    try
-    {
-      const response = await axios.get(url, { params, headers });
-      return response.data;
-    } catch (error)
-    {
-      console.error('获取音乐详情失败', error);
-    }
+      const url = new URL(`http://music.163.com/api/song/detail`);
+      const params = {
+          id: id.toString(),
+          ids: `[${id}]`
+      };
+      url.search = new URLSearchParams(params).toString();
+
+      try
+      {
+          const response = await axios.get(url.toString(), {
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+
+          const musicDetail: MusicDetail = response.data
+
+          return musicDetail;
+      } catch (error)
+      {
+          console.error('获取音乐详情失败', error);
+          return null;
+      }
   }
 
-  async getSongResource(id: string)
+  async getSongResource(id: number)
   {
-    const url = `https://v.iarc.top/?type=song&id=${id}`;
-    const params = {
-      type: 'song',
-      id: id
-    };
-    const headers = {
-      // 如果有需要的话，可以在这里添加请求头
-    };
+      const url = new URL(`https://v.iarc.top/`);
+      const params = {
+          type: 'song',
+          id: id.toString()
+      };
+      url.search = new URLSearchParams(params).toString();
 
-    try
-    {
-      const response = await axios.get(url, { params, headers });
-      return response.data;
-    } catch (error)
-    {
-      console.error('获取歌曲资源失败', error);
-      return null;
-    }
+      try
+      {
+          const response = await axios.get(url.toString(), {
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          });
+
+          return response.data as songResource[];
+      } catch (error)
+      {
+          console.error('获取歌曲资源失败', error);
+          return null;
+      }
   }
-
   /**
     * 针对有重定向的链接，获取重定向后的链接
     * @param shortUrl 重定向前的链接
