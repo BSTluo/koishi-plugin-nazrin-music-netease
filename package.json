@@ -16,7 +16,7 @@
   ],
   "peerDependencies": {
     "koishi": "~4.15.2",
-    "koishi-plugin-nazrin-core": "~0.1.3"
+    "koishi-plugin-nazrin-core": "~0.1.5"
   },
   "repository": {
     "type": "git",
