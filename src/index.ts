@@ -2,7 +2,7 @@ import { Context, Schema } from 'koishi';
 import { MusicSearch } from './api/NeteaseSearch';
 
 // 导入nazrin核心
-import { } from 'koishi-plugin-nazrin-core';
+import { nazrin } from 'koishi-plugin-nazrin-core';
 // 声明使用nazrin核心
 export const inject = ['nazrin'];
 
@@ -20,7 +20,6 @@ export async function apply(ctx: Context)
   {
     ctx.nazrin.music.push(thisPlatform);
   }
-
   ctx.on('nazrin/music', async (ctx:Context, keyword:string) =>
   {
     const musicSearch = new MusicSearch(thisPlatform);

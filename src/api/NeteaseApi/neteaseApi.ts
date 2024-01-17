@@ -10,7 +10,7 @@ export class NeteaseApi
     const params = {
       s: keyWord, // 关键词
       type: 1,
-      limit: 10, // 返回歌曲数量
+      limit: 30, // 返回歌曲数量
       offset: 0, // 偏移量
     };
 

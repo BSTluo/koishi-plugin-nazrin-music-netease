@@ -21,7 +21,6 @@ export class MusicSearch
 
         const data = await this.neteaseApi.getNeteaseMusicSearchData(keyword);
         const result = data.result.songs;
-
         findList = result.map((item: { name: any; artists: { name: any; }[]; id: any; }) =>
         {
             let backObj = {
