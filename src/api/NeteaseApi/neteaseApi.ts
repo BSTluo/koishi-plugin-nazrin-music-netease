@@ -18,69 +18,52 @@ export class NeteaseApi
     const headers = {
     };
 
-    try
-    {
-      const response = await axios.post(url, encryptParam, {
-        headers,
-      });
-      return response.data;
-    } catch (error: any)
-    {
-      console.log(`error response: ${error}`);
-      return null;
-    }
+
+    const response = await axios.post(url, encryptParam, {
+      headers,
+    });
+    return response.data;
+
   }
 
   async getNeteaseMusicDetail(id: number)
   {
-      const url = new URL(`http://music.163.com/api/song/detail`);
-      const params = {
-          id: id.toString(),
-          ids: `[${id}]`
-      };
-      url.search = new URLSearchParams(params).toString();
+    const url = new URL(`http://music.163.com/api/song/detail`);
+    const params = {
+      id: id.toString(),
+      ids: `[${id}]`
+    };
+    url.search = new URLSearchParams(params).toString();
 
-      try
-      {
-          const response = await axios.get(url.toString(), {
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          });
-
-          const musicDetail: MusicDetail = response.data
-
-          return musicDetail;
-      } catch (error)
-      {
-          console.error('获取音乐详情失败', error);
-          return null;
+    const response = await axios.get(url.toString(), {
+      headers: {
+        'Content-Type': 'application/json'
       }
+    });
+
+    const musicDetail: MusicDetail = response.data;
+    return musicDetail;
+
   }
 
   async getSongResource(id: number)
   {
-      const url = new URL(`https://v.iarc.top/`);
-      const params = {
-          type: 'song',
-          id: id.toString()
-      };
-      url.search = new URLSearchParams(params).toString();
+    const url = new URL(`https://v.iarc.top/`);
+    const params = {
+      type: 'song',
+      id: id.toString()
+    };
+    url.search = new URLSearchParams(params).toString();
 
-      try
-      {
-          const response = await axios.get(url.toString(), {
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          });
 
-          return response.data as songResource[];
-      } catch (error)
-      {
-          console.error('获取歌曲资源失败', error);
-          return null;
+    const response = await axios.get(url.toString(), {
+      headers: {
+        'Content-Type': 'application/json'
       }
+    });
+
+    return response.data as songResource[];
+
   }
   /**
     * 针对有重定向的链接，获取重定向后的链接

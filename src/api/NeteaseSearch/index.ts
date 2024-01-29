@@ -1,6 +1,8 @@
+import { Logger } from "koishi";
 import { NeteaseApi } from "../NeteaseApi/neteaseApi";
 export class MusicSearch
 {
+    private logger = new Logger('Nazrin-Music-Netease');
     private neteaseApi: NeteaseApi;
     private thisPlatform: string;
     constructor(thisPlatform: string)
@@ -11,8 +13,15 @@ export class MusicSearch
 
     public async search(keyword: string)
     {
-        const findList = await this.searchMusic(keyword);
-        return findList;
+        try
+        {
+            const findList = await this.searchMusic(keyword);
+            return findList;
+        } catch (error)
+        {
+            this.logger.error(error);
+            return [];
+        }
     }
 
     public async searchMusic(keyword: string)
@@ -39,21 +48,29 @@ export class MusicSearch
 
     public async getVideo(data: any)
     {
-        const neteaseApi = new NeteaseApi();
-        const id = data.id;
-
-
-        const songData = await neteaseApi.getNeteaseMusicDetail(id);
-        const songResources = await neteaseApi.getSongResource(id);
-        if(songData && songResources){
-            const songs = songData.songs[0];
-            const songResource = songResources[0];
-            let songUrl = await neteaseApi.getRedirectUrl(songResource.url);
-            const bitrate = songs.hMusic ? (songs.hMusic.bitrate / 1000) : 128; // 如果 songData.hMusic 存在则使用其比特率，否则使用默认值 128
-            return this.returnCompleteVideoResource(songUrl, data.name, data.artists[0].name, songs.album.picUrl, (data.duration / 1000), bitrate, '66ccff');
-        } else {
-            throw new Error('getVideo: 无法获取歌曲数据')
+        try
+        {
+            const neteaseApi = new NeteaseApi();
+            const id = data.id;
+            const songData = await neteaseApi.getNeteaseMusicDetail(id);
+            const songResources = await neteaseApi.getSongResource(id);
+            if (songData && songResources)
+            {
+                const songs = songData.songs[0];
+                const songResource = songResources[0];
+                let songUrl = await neteaseApi.getRedirectUrl(songResource.url);
+                const bitrate = songs.hMusic ? (songs.hMusic.bitrate / 1000) : 128; // 如果 songData.hMusic 存在则使用其比特率，否则使用默认值 128
+                return this.returnCompleteVideoResource(songUrl, data.name, data.artists[0].name, songs.album.picUrl, (data.duration / 1000), bitrate, '66ccff');
+            } else
+            {
+                throw new Error('getVideo: 无法获取歌曲数据');
+            }
+        } catch (error)
+        {
+            this.logger.error(error);
+            return null;
         }
+
 
     }
 
