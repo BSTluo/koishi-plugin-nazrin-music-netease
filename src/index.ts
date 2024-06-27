@@ -20,7 +20,7 @@ export async function apply(ctx: Context)
   {
     ctx.nazrin.music.push(thisPlatform);
   }
-  ctx.on('nazrin/music', async (ctx: Context, keyword: string, episode?:number|'all') =>
+  ctx.on('nazrin/music', async (ctx: Context, keyword: string, episode?: number | 'all') =>
   {
     const musicSearch = new MusicSearch(thisPlatform);
     const findList = await musicSearch.search(keyword);
