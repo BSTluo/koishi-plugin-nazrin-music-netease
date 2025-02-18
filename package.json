@@ -18,6 +18,9 @@
     "koishi": "^4.18.7",
     "koishi-plugin-nazrin-core": "^0.1.21"
   },
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BSTluo/koishi-plugin-nazrin-music-netease.git"
